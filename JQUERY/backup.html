@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movies</title>
+    <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="http://fonts.googleapis.com/css?family=Sofadi One" rel='stylesheet'>
+      <style type="text/css">
+          body{
+           background-color: grey;
+           font-family: Sofadi One;    
+          }
+        #title{
+            width: 500px;
+        }      </style>
+      
+</head>
+<body>    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#search").click(function (){
+                var url="http://www.omdbapi.com/?s="+document.getElementById("title").value;
+                            $.getJSON(url,function(data){
+                
+                
+                if(data.Response=='False'){
+                  alert("No Such MOVIES");
+                }                  else
+                 {
+                     for(let i=0;i<data.Search.length;i++)
+                     {
+                         
+                        $('#displayImage').append('<img src=" '+ data.Search[i].Poster +' " /> '+ '<h1>' +data.Search[i].Title +'<h1>'+'<br>' );
+                        //$('#display').append(data.Search[i].Title +'<br>');
+                    }
+                }
+             });
+                
+            });
+        });        
+    </script>
+        
+        <div class="container"><!-- start of a container -->
+                <div>
+                    <input type="text" id="title" name="title" placeholder="search for movie">
+                     <button type="button" id="search" class="btn btn-info">
+                          <span class="glyphicon glyphicon-search"></span> Search
+                        </button>
+                   </div>
+             
+             
+             <div class="row"> <!-- start of an row -->
+                 <div class="col-xm-6 col-sm-6 col-lg-6 col-xs-6" >
+                <span  id="displayImage"></span>
+                    </div>
+            </div><!-- end of an row -->
+         </div><!-- end of a container-->            
+            
+    
+</body>
+</html>
