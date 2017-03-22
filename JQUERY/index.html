@@ -1,0 +1,104 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+ 	<meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1.0">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>MOVIE FINDER</title>	
+	<style>
+		.form-control{
+			width: 700px;
+		}
+		#filmlist,li,ul{
+			text-decoration: none;
+		}
+		img{
+			width: 200px;
+			height: 50px;
+		}
+	</style>
+</head>
+
+<body>
+
+<!-- input and search button form -->
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+				   <h1>ENTER MOVIE NAME</h1>
+					<form>
+ 						<input type="text" class="form-control" id="name" placeholder="movie name">
+ 						<br>
+						<button id="btn" type="button" class="btn btn-success">Search</button>
+					</form>
+					<p id="movie">
+					</p>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- form section end -->
+
+<!-- list of films section -->
+<section id="clear">
+	<div class="col-sm-4 col-md-4 col-xs-4 col-lg-4">
+	 	<p id="filmlist">
+	 		<b> Related Film names </b></h2><br>
+	 	</p>
+	</div>		
+</section>	
+<!-- section-1 end -->
+
+<!-- film details in 3 parts with head image info -->
+<section class="film_area" >
+	 <div class="col-sm-8 col-md-8 col-xs-8 col-lg-8">
+				<div id="title"></h1>
+				<img id="image" class="img-circle img-responsive" ></img>
+				<p id="info"></p>	
+	 </div>		
+</section>
+<!-- section-2 end -->
+<br>
+<script>
+	$(document).ready(function(){
+
+	  var createDiv="	<section class="film_area" >
+	 <div class="col-sm-8 col-md-8 col-xs-8 col-lg-8">
+				<div id="title"></h1>
+				<img id="image" class="img-circle img-responsive" ></img>
+				<p id="info"></p>	
+		 </div>		
+		</section>"; 
+
+
+
+		$("#btn").click(function(){
+			
+
+			  	var link="http://www.omdbapi.com/?s="+ document.getElementById("name").value;
+				$.getJSON( link,function( data ) {
+			    for (let i in data.Search)
+			    {
+			    $('.film_area').append(createDiv);
+				  $("#filmlist").append(data.Search[i].Title).append("<br>");
+				  $("#title").html(data.Search[i].Title)
+				 // var imgs=data.Search[i].Poster;
+				  $("#image").show();
+				  $("#image").attr('src',data.Search[i].Poster )
+				  $("#info").text("Year :" +data.Search[i].Year)
+				  //$("#info").text(data.Search[i].imdbID)
+			 	}
+			 	
+			});
+		});
+	});
+
+</script>	
+
+</body>
+
+</html>
